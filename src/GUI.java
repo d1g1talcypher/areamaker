@@ -17,28 +17,19 @@ public class GUI extends JFrame {
 
         setSize(500, 500);
         setLocation(50, 50);
+        setResizable(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        setLayout(new GridLayout());
-
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-
-        JTextArea textArea = new JTextArea(30, 30);
+        JTextArea textArea = new JTextArea();
         textArea.setLineWrap(true);
         textArea.setEditable(false);
 
-        JScrollPane scroller = new JScrollPane(textArea);
-        scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        JScrollPane textAreaScrollPane = new JScrollPane(textArea);
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout());
-
-        JButton addTileButton = new JButton("Add tile");
+        JButton toggleTileButton = new JButton("Toggle tile");
         JButton resetButton = new JButton("Reset");
 
-        addTileButton.addActionListener(event -> {
+        toggleTileButton.addActionListener(event -> {
             updateTileArray();
             updateTextArea(textArea);
         });
@@ -48,11 +39,16 @@ public class GUI extends JFrame {
             updateTextArea(textArea);
         });
 
-        buttonPanel.add(addTileButton);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(toggleTileButton);
         buttonPanel.add(resetButton);
-        mainPanel.add(scroller);
-        mainPanel.add(buttonPanel);
-        getContentPane().add(BorderLayout.CENTER, mainPanel);
+
+        JPanel rootPanel = new JPanel();
+        rootPanel.setLayout(new BorderLayout());
+        rootPanel.add(textAreaScrollPane, BorderLayout.CENTER);
+        rootPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        getContentPane().add(rootPanel);
         setVisible(true);
 
         updateTextArea(textArea);
@@ -63,11 +59,11 @@ public class GUI extends JFrame {
     }
 
     private void updateTileArray() {
-        Tile playerLoc = ctx.localPlayer().getLocation();
-        if (!tiles.contains(playerLoc)) {
-            tiles.add(playerLoc);
+        Tile playerTile = ctx.localPlayer().getLocation();
+        if (!tiles.contains(playerTile)) {
+            tiles.add(playerTile);
         } else {
-            tiles.remove(playerLoc);
+            tiles.remove(playerTile);
         }
     }
 
