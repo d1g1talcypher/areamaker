@@ -6,39 +6,37 @@ import com.epicbot.api.shared.script.Script;
 import com.epicbot.api.shared.script.ScriptManifest;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @ScriptManifest(name = "Area Maker", gameType = GameType.OS)
 public class AreaMaker extends Script {
-    private final List<Tile> tiles = new ArrayList<>();
+    private GUI gui;
 
     @Override
     public boolean onStart(String... strings) {
-        new GUI(getAPIContext(), tiles);
+        gui = new GUI(getAPIContext());
         return true;
     }
 
     @Override
     protected void onPaint(Graphics2D g, APIContext ctx) {
-        Color outlineColor;
-        Color fillColor;
+        if (gui != null) {
+            Color outlineColor;
+            Color fillColor;
 
-        // selected tiles in solid white
-        outlineColor = new Color(255, 255, 255);
-        fillColor = new Color(255, 255, 255);
-        for (Tile tile : tiles) {
-            drawTile(g, tile, outlineColor, fillColor);
+            // draw selected tiles in solid white
+            outlineColor = new Color(255, 255, 255);
+            fillColor = new Color(255, 255, 255);
+            for (Tile tile : gui.getSelectedTiles()) {
+                drawTile(g, tile, outlineColor, fillColor);
+            }
+            // draw generated Area in transparent green
+            outlineColor = new Color(0, 255, 0);
+            fillColor = new Color(0, 255, 0, 128);
+            Area area = new Area(gui.getTiles().toArray(new Tile[0]));
+            for (Tile tile : area.getTiles()) {
+                drawTile(g, tile, outlineColor, fillColor);
+            }
         }
-
-        // generated area in transparent green
-        Area area = new Area(tiles.toArray(new Tile[0]));
-        outlineColor = new Color(0, 255, 0);
-        fillColor = new Color(0, 255, 0, 128);
-        for (Tile tile : area.getTiles()) {
-            drawTile(g, tile, outlineColor, fillColor);
-        }
-
     }
 
     private void drawTile(Graphics2D g, Tile tile, Color outlineColor, Color fillColor) {
@@ -50,4 +48,6 @@ public class AreaMaker extends Script {
             g.fillPolygon(outline);
         }
     }
+
+
 }
