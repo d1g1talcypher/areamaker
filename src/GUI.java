@@ -55,7 +55,7 @@ public class GUI extends JFrame {
     }
 
     private void updateTextArea(JTextArea textArea) {
-        textArea.setText(getAreaConstructor() + "\n\n" + getTileListConstructor());
+        textArea.setText(getAreaConstructor() + "\n\n" + getTileArrayConstructor());
     }
 
     private void toggleTile() {
@@ -72,7 +72,7 @@ public class GUI extends JFrame {
         return "new Area(" + String.join(", ", tileConstructors) + ")";
     }
 
-    private String getTileListConstructor() {
+    private String getTileArrayConstructor() {
         List<String> tileConstructors = tiles.stream().map(this::getTileConstructor).collect(Collectors.toList());
         return "new Tile[] {" + String.join(", ", tileConstructors) + "}";
     }
