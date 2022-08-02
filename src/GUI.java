@@ -30,7 +30,7 @@ public class GUI extends JFrame {
         JButton resetButton = new JButton("Reset");
 
         toggleTileButton.addActionListener(event -> {
-            updateTileList();
+            toggleTile();
             updateTextArea(textArea);
         });
 
@@ -58,7 +58,7 @@ public class GUI extends JFrame {
         textArea.setText(getAreaConstructor() + "\n\n" + getTileArrayConstructor());
     }
 
-    private void updateTileList() {
+    private void toggleTile() {
         Tile playerTile = ctx.localPlayer().getLocation();
         if (!tiles.contains(playerTile)) {
             tiles.add(playerTile);
