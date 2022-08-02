@@ -1,5 +1,5 @@
 # Area Maker
-Generate the code an Area by selecting tiles.
+Generate the code for an Area by selecting tiles.
 
 Example output:
 ```java
