@@ -47,7 +47,6 @@ public class Utils {
                 tilesExpanded.add(tile);
             } else {
                 Tile nearestTile = Utils.getNearestTile(area, tile);
-//                if (nearestTile != null) {
                 int newX;
                 int newY;
                 // expand in the X direction
@@ -68,7 +67,6 @@ public class Utils {
                 }
                 tilesExpanded.add(new Tile(newX, newY, tile.getPlane()));
             }
-//            }
         }
         return tilesExpanded;
     }
