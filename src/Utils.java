@@ -40,7 +40,7 @@ public class Utils {
         Area area = new Area(tiles.toArray(new Tile[0]));
         List<Tile> tilesExpanded = new ArrayList<>();
         if (area.getTiles().length == 0) {
-            return tilesExpanded;
+            return tiles;
         }
         for (Tile tile : tiles) {
             if (area.contains(tile)) {
